@@ -8,13 +8,13 @@ export const CATEGORY = {
 
 const APPETIZER = [
   { name: '양송이수프', price: 6_000, category: CATEGORY.appetizer },
-  { name: '타파스', prize: 5_500, category: CATEGORY.appetizer },
+  { name: '타파스', price: 5_500, category: CATEGORY.appetizer },
   { name: '시저샐러드', price: 8_000, category: CATEGORY.appetizer },
 ];
 
 const MAIN_COURSE = [
   { name: '티본스테이크', price: 55_000, category: CATEGORY.mainCourse },
-  { name: '바비큐리브', price: 54_000, category: CATEGORY.mainCourse },
+  { name: '바비큐립', price: 54_000, category: CATEGORY.mainCourse },
   { name: '해산물파스타', price: 35_000, category: CATEGORY.mainCourse },
   { name: '크리스마스파스타', price: 25_000, category: CATEGORY.mainCourse },
 ];
