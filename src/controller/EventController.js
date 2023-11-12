@@ -8,8 +8,8 @@ class EventController {
   async process() {
     Io.printOpening();
 
-    const visitDate = await this.#requestVisitDate();
-    const shoppingCart = await this.#requestMenuList();
+    const visitDate = await this.#catchReturn(this.#requestVisitDate);
+    const shoppingCart = await this.#catchReturn(this.#requestMenuList);
 
     Io.printResultHeader(visitDate.date);
 
@@ -66,6 +66,19 @@ class EventController {
     const badge = Badge.checkBadge(totalDiscountPrice);
 
     Io.printBadge(badge);
+  }
+
+  async #catchReturn(callback) {
+    let result;
+
+    try {
+      result = await callback();
+    } catch (e) {
+      Io.printError(e.message);
+      result = await this.#catchReturn(callback);
+    }
+
+    return result;
   }
 }
 
