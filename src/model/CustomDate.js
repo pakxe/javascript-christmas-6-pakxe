@@ -1,6 +1,6 @@
 import ERROR from '../error/constants/error.js';
 import EVENT from '../constant/eventInfo.js';
-import VisitDayError from '../error/VisitDayError.js';
+import VisitDateError from '../error/VisitDateError.js';
 import Parser from '../parser/Parser.js';
 import Validator from '../validator/Validator.js';
 
@@ -19,9 +19,9 @@ class CustomDate {
   }
 
   #validateDay(day) {
-    if (Validator.isNan(day)) throw new VisitDayError(ERROR.visitDay);
+    if (Validator.isNan(day)) throw new VisitDateError(ERROR.visitDay);
     if (Validator.isNotInRange([EVENT.startDay, EVENT.endDay], day))
-      throw new VisitDayError(ERROR.visitDay);
+      throw new VisitDateError(ERROR.visitDay);
   }
 
   get() {
