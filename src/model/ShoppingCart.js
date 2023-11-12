@@ -8,11 +8,17 @@ import MenuListDto from '../dto/MenuListDto.js';
 class ShoppingCart {
   #menuList = new Map(); // { category: Menu [] } 구조
 
+  #totalPrice; // 계산에 리소스가 많이 필요할 수도 있으므로 생성자에서 미리 계산
+
   constructor(menuList) {
     const parsedMenuList = this.#parseMenuList(menuList);
     this.#categorizeMenuList(parsedMenuList);
 
     validateMenuList(this.#menuList);
+
+    this.#totalPrice = PriceCalculator.getTotalPriceWithoutDiscount(
+      this.#menuList,
+    );
   }
 
   #categorizeMenuList(menuList) {
@@ -37,7 +43,7 @@ class ShoppingCart {
   }
 
   get totalPrice() {
-    return PriceCalculator.getTotalPriceWithoutDiscount(this.#menuList);
+    return this.#totalPrice;
   }
 
   get menuList() {
