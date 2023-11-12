@@ -24,6 +24,27 @@ class CustomDate {
       throw new VisitDateError(ERROR.visitDay);
   }
 
+  isInDaysOfWeek(daysOfWeek) {
+    return daysOfWeek.includes(this.#date.getDay());
+  }
+
+  isInPeriod({ start, end }) {
+    return this.#date >= start && this.#date <= end;
+  }
+
+  differenceDate(anotherDate) {
+    const timeDifference = Math.abs(this.#date - anotherDate);
+    const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+    return Math.floor(daysDifference);
+  }
+
+  isSameDate(anotherDate) {
+    const differenceDay = this.differenceDate(anotherDate);
+
+    return differenceDay === 0;
+  }
+
   get() {
     return this.#date;
   }

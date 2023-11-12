@@ -1,4 +1,3 @@
-import DateUtils from '../../utils/DateUtils.js';
 import Event from './Event.js';
 
 const DEFAULT_DISCOUNT_PRICE = 1000;
@@ -14,11 +13,11 @@ class ChristmasDDayEvent extends Event {
   }
 
   isWithinEventDays(date) {
-    return DateUtils.isInPeriod(date, this.period);
+    return date.isInPeriod(this.period);
   }
 
   #calcTotalDiscountPrice(date) {
-    const dayDiff = DateUtils.differenceDay(date, this.period.start);
+    const dayDiff = date.differenceDate(this.period.start);
 
     return dayDiff * INTEREST;
   }

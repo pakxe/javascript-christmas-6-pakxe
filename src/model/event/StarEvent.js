@@ -1,4 +1,3 @@
-import DateUtils from '../../utils/DateUtils.js';
 import CustomDate from '../CustomDate.js';
 import Event from './Event.js';
 
@@ -15,9 +14,7 @@ class StarEvent extends Event {
   }
 
   isWithinEventDays(date) {
-    return STAR_DAYS.some((day) =>
-      DateUtils.isSameDate(new CustomDate(day), date),
-    );
+    return STAR_DAYS.some((day) => date.isSameDate(new CustomDate(day)));
   }
 
   get totalDiscountPrice() {

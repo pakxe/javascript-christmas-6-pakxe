@@ -1,4 +1,3 @@
-import DateUtils from '../../utils/DateUtils.js';
 import Event from './Event.js';
 import { WEEKDAYS } from '../constants/daysOfWeek.js';
 import { CATEGORY } from '../../constant/menuList.js';
@@ -16,10 +15,10 @@ class WeekDaysEvent extends Event {
 
   isWithinEventDays(date) {
     // 이벤트 기간 이내인지
-    if (!DateUtils.isInPeriod(date, this.period)) return false;
+    if (!date.isInPeriod(this.period)) return false;
 
     // 이벤트 요일이 맞는지
-    return DateUtils.isInDaysOfWeek(date, WEEKDAYS);
+    return date.isInDaysOfWeek(WEEKDAYS);
   }
 
   #calcTotalDiscountPrice(shoppingCart) {
