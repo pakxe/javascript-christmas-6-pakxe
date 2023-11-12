@@ -9,10 +9,16 @@ class GiftEvent extends Event {
 
   #totalDiscountPrice;
 
-  init({ shoppingCart }) {
+  init({ date, shoppingCart }) {
     this.#calcGiftList(shoppingCart.totalPrice);
 
-    this.#totalDiscountPrice = this.#calcTotalDiscountPrice();
+    this.#totalDiscountPrice = this.isWithinEventDays(date)
+      ? this.#calcTotalDiscountPrice()
+      : 0;
+  }
+
+  isWithinEventDays(date) {
+    return date.isInPeriod(this.period);
   }
 
   #calcGiftList(totalPrice) {
