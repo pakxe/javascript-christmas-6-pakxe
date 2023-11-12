@@ -1,5 +1,6 @@
 import PriceCalculator from './PriceCalculator.js';
 import EVENT_LIST from './constants/eventList.js';
+import { MIN_ORDER_PRICE } from './constants/rule.js';
 import EventFactory from './event/EventFactory.js';
 import GiftEvent from './event/GiftEvent.js';
 
@@ -11,7 +12,7 @@ class EventPlanner {
   #totalDiscountPrice;
 
   constructor(date, shoppingCart) {
-    this.#eventList = this.#initEventList();
+    this.#eventList = this.#initEventList(shoppingCart.totalPrice);
 
     this.#discountList = this.#getDiscountList(date, shoppingCart);
 
@@ -20,7 +21,10 @@ class EventPlanner {
     );
   }
 
-  #initEventList() {
+  #initEventList(totalPrice) {
+    // 10000원 이하면 이벤트 적용 x
+    if (totalPrice < MIN_ORDER_PRICE) return [];
+
     return Object.values(EVENT_LIST).map((event) =>
       EventFactory.create(event.engName),
     );
