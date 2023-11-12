@@ -2,7 +2,7 @@ import MENU_LIST from '../constant/menuList.js';
 import ERROR from '../error/constants/error.js';
 import Parser from '../parser/Parser.js';
 import Validator from '../validator/Validator.js';
-import { MENU_COUNT } from './constants/menu.js';
+import { MENU_COUNT } from './constants/rule.js';
 import MenuError from '../error/MenuError.js';
 
 class Menu {
