@@ -10,14 +10,13 @@ class GiftEvent extends Event {
   #totalDiscountPrice;
 
   init({ shoppingCart }) {
-    this.#giftList = this.#calcGiftList(shoppingCart.totalPrice);
+    this.#calcGiftList(shoppingCart.totalPrice);
+
     this.#totalDiscountPrice = this.#calcTotalDiscountPrice();
   }
 
   #calcGiftList(totalPrice) {
     GIFT_LIST.forEach((gift) => this.#giveGiftIfOverPrice(gift, totalPrice));
-
-    return this.#giftList;
   }
 
   #giveGiftIfOverPrice({ giftName, minPrice }, totalPrice) {
