@@ -16,7 +16,7 @@ class EventPlanner {
 
     this.#discountList = this.#getDiscountList(date, shoppingCart);
 
-    this.#totalDiscountPrice = PriceCalculator.getTotalDiscountPrice(
+    this.#totalDiscountPrice = PriceCalculator.calcTotalDiscountPrice(
       this.#discountList,
     );
   }
@@ -43,11 +43,11 @@ class EventPlanner {
   }
 
   get giftList() {
-    const giftEventList = this.#eventList.filter(
-      (event) => event instanceof GiftEvent,
-    ); // TODO: 보편적인 상속으로 바꾸기
+    return this.#giftEventList.map((giftEvent) => giftEvent.giftList).flat();
+  }
 
-    return giftEventList.map((giftEvent) => giftEvent.giftList).flat();
+  #giftEventList() {
+    return this.#eventList.filter((event) => event instanceof GiftEvent);
   }
 
   get discountList() {
@@ -58,15 +58,15 @@ class EventPlanner {
     return this.#totalDiscountPrice;
   }
 
-  // TODO: 할인 총액이 중복계산되는 부분 수정
   getFinalPrice(totalPriceWithoutDiscount) {
-    const giftPrice = this.#eventList
-      .filter((event) => event instanceof GiftEvent)
-      .reduce((total, event) => total + event.totalDiscountPrice, 0);
+    const totalGiftPrice = this.#giftEventList.reduce(
+      (total, event) => total + event.totalDiscountPrice,
+      0,
+    );
 
     return PriceCalculator.getFinalPrice(
       totalPriceWithoutDiscount,
-      this.#totalDiscountPrice - giftPrice,
+      this.#totalDiscountPrice - totalGiftPrice,
     );
   }
 }
