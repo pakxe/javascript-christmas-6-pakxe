@@ -2,6 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 import NOTIFICATION_MESSAGE from './constants/notificationMessage.js';
 import { PREVIEW_HEADER, PREVIEW_MARK } from './constants/previewMessage.js';
 import addMoneyDelimiter from '../utils/addMoneyDelimiter.js';
+import { NO_BADGE } from '../model/Badge.js';
 
 const OutputView = (superClass) =>
   class OutputClass extends superClass {
@@ -82,7 +83,7 @@ const OutputView = (superClass) =>
     static printBadge(badge) {
       Console.print(PREVIEW_HEADER.badge);
 
-      if (badge === null) return Console.print(PREVIEW_MARK.none);
+      if (badge === NO_BADGE) return Console.print(PREVIEW_MARK.none);
 
       Console.print(badge);
     }

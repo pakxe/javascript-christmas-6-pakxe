@@ -1,3 +1,4 @@
+export const NO_BADGE = '배지 없음';
 const BADGE_LIST = [
   {
     name: '별',
@@ -15,7 +16,7 @@ const BADGE_LIST = [
 
 class Badge {
   static checkBadge(totalDiscountPrice) {
-    let badge = null;
+    let badge = NO_BADGE;
 
     BADGE_LIST.forEach(({ name, minPrice }) => {
       if (totalDiscountPrice >= minPrice) badge = name;
