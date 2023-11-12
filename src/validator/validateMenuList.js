@@ -1,12 +1,7 @@
 import { CATEGORY } from '../constant/menuList.js';
 import MenuError from '../error/MenuError.js';
 import ERROR from '../error/constants/error.js';
-import PriceCalculator from '../model/PriceCalculator.js';
-import {
-  MENU_COUNT,
-  MENU_LIST_COUNT,
-  MIN_ORDER_PRICE,
-} from '../model/constants/menu.js';
+import { MENU_COUNT, MENU_LIST_COUNT } from '../model/constants/rule.js';
 import menuListToFlatArr from '../utils/menuListToFlatArr.js';
 import Validator from './Validator.js';
 
@@ -41,12 +36,6 @@ const isOnlyBeverage = (menuList) => {
   return false;
 };
 
-const isUnderMinOrderPrice = (menuList) => {
-  return (
-    PriceCalculator.getTotalPriceWithoutDiscount(menuList) < MIN_ORDER_PRICE
-  );
-};
-
 const validateMenuList = (menuList) => {
   const flattedMenuList = menuListToFlatArr(menuList);
 
@@ -54,9 +43,7 @@ const validateMenuList = (menuList) => {
   if (isInvalidCount(flattedMenuList)) throw new MenuError(ERROR.menu);
   if (isInvalidMenuCount(flattedMenuList)) throw new MenuError(ERROR.menu);
 
-  if (isOnlyBeverage(menuList)) throw new MenuError(ERROR.onlyBeverage);
-  if (isUnderMinOrderPrice(menuList))
-    throw new MenuError(ERROR.underMinOrderPrice);
+  if (isOnlyBeverage(menuList)) throw new MenuError(ERROR.menu);
 };
 
 export default validateMenuList;
