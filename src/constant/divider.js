@@ -1,4 +1,6 @@
-const DIVIDER = Object.freeze({
+import deepFreeze from '../utils/deepFreeze.js';
+
+const DIVIDER = deepFreeze({
   menu: '-',
   menuList: ',',
 });

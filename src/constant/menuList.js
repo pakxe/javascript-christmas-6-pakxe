@@ -1,10 +1,12 @@
+import deepFreeze from '../utils/deepFreeze.js';
+
 // 배민앱에 새로운 가게를 입점해도 메뉴를 객체로 관리하지 않을 것 같음
-export const CATEGORY = {
+export const CATEGORY = deepFreeze({
   appetizer: 'appetizer',
   mainCourse: 'mainCourse',
   dessert: 'dessert',
   beverage: 'beverage',
-};
+});
 
 const APPETIZER = [
   { name: '양송이수프', price: 6_000, category: CATEGORY.appetizer },
@@ -30,6 +32,11 @@ const BEVERAGE = [
   { name: '샴페인', price: 25_000, category: CATEGORY.beverage },
 ];
 
-const MENU_LIST = [...APPETIZER, ...MAIN_COURSE, ...DESSERT, ...BEVERAGE];
+const MENU_LIST = deepFreeze([
+  ...APPETIZER,
+  ...MAIN_COURSE,
+  ...DESSERT,
+  ...BEVERAGE,
+]);
 
 export default MENU_LIST;

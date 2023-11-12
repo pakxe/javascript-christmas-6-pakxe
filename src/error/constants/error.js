@@ -1,10 +1,11 @@
 import { MIN_ORDER_PRICE } from '../../model/constants/rule.js';
+import deepFreeze from '../../utils/deepFreeze.js';
 
 const COMMON_MESSAGE = {
   retry: '다시 입력해 주세요.',
 };
 
-const ERROR = Object.freeze({
+const ERROR = deepFreeze({
   prefix: '[ERROR]',
   retry: '다시 입력해주세요.',
   visitDay: `유효하지 않은 날짜입니다. ${COMMON_MESSAGE.retry}`,

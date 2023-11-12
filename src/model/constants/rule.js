@@ -1,12 +1,14 @@
-const MENU_COUNT = {
-  min: 1,
-  max: 20,
-};
+import deepFreeze from '../../utils/deepFreeze.js';
 
-const MENU_LIST_COUNT = {
+const MENU_COUNT = deepFreeze({
   min: 1,
   max: 20,
-};
+});
+
+const MENU_LIST_COUNT = deepFreeze({
+  min: 1,
+  max: 20,
+});
 
 const MIN_ORDER_PRICE = 10_000;
 
