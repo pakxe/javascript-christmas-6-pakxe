@@ -35,6 +35,8 @@ const OutputView = (superClass) =>
     static printGiftList(giftList) {
       Console.print(PREVIEW_HEADER.giftList);
 
+      if (giftList.length === 0) return Console.print(PREVIEW_MARK.none);
+
       const messages = [];
       giftList.forEach(({ name, count }) =>
         messages.push(`${name} ${count}${PREVIEW_MARK.count}`),
@@ -65,8 +67,8 @@ const OutputView = (superClass) =>
       Console.print(PREVIEW_HEADER.totalDiscountPrice);
 
       const delimitedPrice = addMoneyDelimiter(totalDiscountPrice);
-
-      Console.print(PREVIEW_MARK.minus + delimitedPrice + PREVIEW_MARK.price);
+      const minusState = totalDiscountPrice === 0 ? '' : PREVIEW_MARK.minus;
+      Console.print(`${minusState}${delimitedPrice}${PREVIEW_MARK.price}`);
     }
 
     static printFinalPrice(finalPrice) {
@@ -83,6 +85,10 @@ const OutputView = (superClass) =>
       if (badge === null) return Console.print(PREVIEW_MARK.none);
 
       Console.print(badge);
+    }
+
+    static printError(errorMessage) {
+      Console.print(errorMessage);
     }
   };
 
