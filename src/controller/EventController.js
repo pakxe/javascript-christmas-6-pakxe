@@ -3,14 +3,37 @@ import Io from '../view/Io.js';
 import EventPlanner from '../model/EventPlanner.js';
 import CustomDate from '../model/CustomDate.js';
 import Badge from '../model/Badge.js';
+import catchReturn from '../utils/catchReturn.js';
 
 class EventController {
   async process() {
+    const { visitDate, shoppingCart } = await this.#requestInformation();
+
+    this.#printResult({ visitDate, shoppingCart });
+  }
+
+  async #requestInformation() {
     Io.printOpening();
 
-    const visitDate = await this.#catchReturn(this.#requestVisitDate);
-    const shoppingCart = await this.#catchReturn(this.#requestMenuList);
+    const visitDate = await catchReturn(this.#requestVisitDate);
+    const shoppingCart = await catchReturn(this.#requestMenuList);
 
+    return { visitDate, shoppingCart };
+  }
+
+  async #requestVisitDate() {
+    const visitDayStr = await Io.requestVisitDate();
+
+    return new CustomDate(visitDayStr);
+  }
+
+  async #requestMenuList() {
+    const menuListStr = await Io.requestMenuList();
+
+    return new ShoppingCart(menuListStr);
+  }
+
+  #printResult({ visitDate, shoppingCart }) {
     Io.printResultHeader(visitDate.date);
 
     this.#printMenuList(shoppingCart.menuList);
@@ -22,20 +45,6 @@ class EventController {
     this.#printTotalDisCountPrice(eventPlanner.totalDiscountPrice);
     this.#printFinalPrice(eventPlanner.getFinalPrice(shoppingCart.totalPrice));
     this.#printBadge(eventPlanner.totalDiscountPrice);
-  }
-
-  // 방문일 물어보기
-  async #requestVisitDate() {
-    const visitDayStr = await Io.requestVisitDate();
-
-    return new CustomDate(visitDayStr);
-  }
-
-  // 메뉴 물어보기
-  async #requestMenuList() {
-    const menuListStr = await Io.requestMenuList();
-
-    return new ShoppingCart(menuListStr);
   }
 
   #printMenuList(menuList) {
@@ -66,19 +75,6 @@ class EventController {
     const badge = Badge.checkBadge(totalDiscountPrice);
 
     Io.printBadge(badge);
-  }
-
-  async #catchReturn(callback) {
-    let result;
-
-    try {
-      result = await callback();
-    } catch (e) {
-      Io.printError(e.message);
-      result = await this.#catchReturn(callback);
-    }
-
-    return result;
   }
 }
 
