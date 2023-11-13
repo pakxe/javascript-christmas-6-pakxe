@@ -35,40 +35,31 @@ class EventController {
 
   #printResult({ visitDate, shoppingCart }) {
     Io.printResultHeader(visitDate.date);
-
-    this.#printMenuList(shoppingCart.menuList);
-    this.#printTotalPriceWithoutDiscount(shoppingCart.totalPrice);
-
     const eventPlanner = new EventPlanner(visitDate, shoppingCart);
-    this.#printGiftList(eventPlanner.giftList);
-    this.#printDiscountList(eventPlanner.discountList);
-    this.#printTotalDisCountPrice(eventPlanner.totalDiscountPrice);
-    this.#printFinalPrice(eventPlanner.getFinalPrice(shoppingCart.totalPrice));
+
+    this.#printBeforeDiscount({ shoppingCart });
+    this.#printAfterDiscount({ eventPlanner, shoppingCart });
     this.#printBadge(eventPlanner.totalDiscountPrice);
   }
 
-  #printMenuList(menuList) {
+  #printBeforeDiscount({ shoppingCart }) {
+    const { menuList } = shoppingCart;
+    const totalPriceWithoutDiscount = shoppingCart.totalPrice;
+
     Io.printMenuList(menuList);
+    Io.printTotalPriceWithoutDiscount(totalPriceWithoutDiscount);
   }
 
-  #printTotalPriceWithoutDiscount(totalPrice) {
-    Io.printTotalPriceWithoutDiscount(totalPrice);
-  }
+  #printAfterDiscount({ eventPlanner, shoppingCart }) {
+    const { giftList, discountList, totalDiscountPrice } = eventPlanner;
 
-  #printGiftList(giftList) {
     Io.printGiftList(giftList);
-  }
-
-  #printDiscountList(discountList) {
     Io.printDiscountList(discountList);
-  }
 
-  #printTotalDisCountPrice(totalDiscountPrice) {
+    const totalPriceWithoutDiscount = shoppingCart.totalPrice;
+
     Io.printTotalDiscountPrice(totalDiscountPrice);
-  }
-
-  #printFinalPrice(finalPrice) {
-    Io.printFinalPrice(finalPrice);
+    Io.printFinalPrice(eventPlanner.calcFinalPrice(totalPriceWithoutDiscount));
   }
 
   #printBadge(totalDiscountPrice) {
@@ -79,6 +70,3 @@ class EventController {
 }
 
 export default EventController;
-
-const a = new EventController();
-a.process();
