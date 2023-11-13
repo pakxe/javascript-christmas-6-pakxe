@@ -1,11 +1,22 @@
 import { Console } from '@woowacourse/mission-utils';
-import NOTIFICATION_MESSAGE from './constants/notificationMessage.js';
 import { PREVIEW_HEADER, PREVIEW_MARK } from './constants/previewMessage.js';
 import addMoneyDelimiter from '../utils/addMoneyDelimiter.js';
 import { NO_BADGE } from '../model/Badge.js';
+import {
+  NOTIFICATION_MESSAGE,
+  WARNING_MESSAGE,
+} from './constants/notificationMessage.js';
 
 const OutputView = (superClass) =>
   class OutputClass extends superClass {
+    static printWarning() {
+      const warningMessageList = Object.entries(WARNING_MESSAGE).map(
+        ([_, message]) => message,
+      );
+
+      OutputClass.#printListWithNewLine(warningMessageList);
+    }
+
     static printOpening() {
       Console.print(NOTIFICATION_MESSAGE.opening);
     }
