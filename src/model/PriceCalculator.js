@@ -25,7 +25,7 @@ class PriceCalculator {
     return price;
   }
 
-  static getTotalDiscountPrice(discountList) {
+  static calcTotalDiscountPrice(discountList) {
     return discountList.reduce(
       (total, discountInfo) => total + discountInfo.totalDiscountPrice,
       0,
