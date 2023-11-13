@@ -1,8 +1,9 @@
 import ERROR from '../error/constants/error.js';
-import EVENT from '../constant/eventInfo.js';
+import EVENT from '../constant/event.js';
 import VisitDateError from '../error/VisitDateError.js';
 import Parser from '../parser/Parser.js';
 import Validator from '../validator/Validator.js';
+import addLeadingZero from '../utils/addLeadingZero.js';
 
 class CustomDate {
   #date;
@@ -12,9 +13,9 @@ class CustomDate {
 
     this.#validateDay(parsedDay);
 
-    // 확장 가능성을 생각해 Date 객체로 다룸
+    // 비교의 원활함과 확장을 생각해 Date객체로 다룸
     this.#date = new Date(
-      `${EVENT.year}-${EVENT.month}-${Parser.addLeadingZero(day, 2)}`,
+      `${EVENT.year}-${EVENT.month}-${addLeadingZero(day, 2)}`,
     );
   }
 
@@ -24,6 +25,12 @@ class CustomDate {
       throw new VisitDateError(ERROR.visitDay);
   }
 
+  /**
+   * 이 객체의 요일이 인자로 넘어온 요일 배열에 포함되지 않는지 여부 반환
+   * @param { CustomDay {} }
+   * @param { number [] } daysOfWeek 요일 int 배열
+   * [일, 월, 화, 수, 목, 금, 토, 일] 의 인덱스를 가진다.
+   */
   isInDaysOfWeek(daysOfWeek) {
     return daysOfWeek.includes(this.#date.getDay());
   }
@@ -32,21 +39,17 @@ class CustomDate {
     return this.#date >= start && this.#date <= end;
   }
 
-  differenceDate(anotherDate) {
-    const timeDifference = Math.abs(this.#date - anotherDate);
+  differenceDate(date) {
+    const timeDifference = Math.abs(this.#date - date);
     const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
 
     return Math.floor(daysDifference);
   }
 
-  isSameDate(anotherDate) {
-    const differenceDay = this.differenceDate(anotherDate);
+  isSameDate(date) {
+    const differenceDay = this.differenceDate(date);
 
     return differenceDay === 0;
-  }
-
-  get() {
-    return this.#date;
   }
 
   // 년월일 중 일
