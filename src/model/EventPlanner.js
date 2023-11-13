@@ -9,7 +9,7 @@ class EventPlanner {
 
   #discountList;
 
-  #totalDiscountPrice;
+  #totalDiscountPrice; // 재호출로 소모되는 시간을 줄이기 위한 멤버 변수 할당
 
   constructor(date, shoppingCart) {
     this.#eventList = this.#initEventList(shoppingCart.totalPrice);
@@ -60,7 +60,7 @@ class EventPlanner {
     return this.#totalDiscountPrice;
   }
 
-  getFinalPrice(totalPriceWithoutDiscount) {
+  calcFinalPrice(totalPriceWithoutDiscount) {
     const totalGiftPrice = this.#getGiftEventList().reduce(
       (total, event) => total + event.totalDiscountPrice,
       0,
