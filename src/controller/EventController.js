@@ -14,6 +14,7 @@ class EventController {
 
   async #requestInformation() {
     Io.printOpening();
+    Io.printWarning();
 
     const visitDate = await catchReturn(this.#requestVisitDate);
     const shoppingCart = await catchReturn(this.#requestMenuList);
