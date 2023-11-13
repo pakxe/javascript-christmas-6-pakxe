@@ -6,7 +6,7 @@ import PriceCalculator from './PriceCalculator.js';
 import MenuListDto from '../dto/MenuListDto.js';
 
 class ShoppingCart {
-  #menuList = new Map(); // { category: Menu [] } 구조
+  #menuList = new Map(); // { category: Menu [] }
 
   #totalPrice; // 계산에 리소스가 많이 필요할 수도 있으므로 생성자에서 미리 계산
 
