@@ -1,5 +1,3 @@
-// import validateDate from '../../validator/validateDate.js';
-
 import OverridingError from '../../error/OverridingError.js';
 
 class Event {
