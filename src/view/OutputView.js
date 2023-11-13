@@ -17,79 +17,107 @@ const OutputView = (superClass) =>
     static printMenuList(menuList) {
       Console.print(PREVIEW_HEADER.menuList);
 
-      const messages = [];
-      menuList.forEach(({ name, count }) =>
-        messages.push(`${name} ${count}${PREVIEW_MARK.count}`),
-      );
+      const menuListMessages = OutputClass.#createMessageList(menuList);
 
-      Console.print(messages.join(PREVIEW_MARK.newLine));
+      OutputClass.#printListWithNewLine(menuListMessages);
     }
 
     static printTotalPriceWithoutDiscount(price) {
       Console.print(PREVIEW_HEADER.totalPriceWithoutDiscount);
-
-      const delimitedMoney = addMoneyDelimiter(price);
-
-      Console.print(delimitedMoney + PREVIEW_MARK.price);
+      Console.print(OutputClass.#priceMessage({ price }));
     }
 
     static printGiftList(giftList) {
       Console.print(PREVIEW_HEADER.giftList);
 
-      if (giftList.length === 0) return Console.print(PREVIEW_MARK.none);
+      if (giftList.length === 0) return OutputClass.#printNone();
 
-      const messages = [];
-      giftList.forEach(({ name, count }) =>
-        messages.push(`${name} ${count}${PREVIEW_MARK.count}`),
-      );
+      const giftListMessages = OutputClass.#createMessageList(giftList);
 
-      Console.print(messages.join(PREVIEW_MARK.newLine));
+      OutputClass.#printListWithNewLine(giftListMessages);
     }
 
     static printDiscountList(discountList) {
       Console.print(PREVIEW_HEADER.discountList);
 
-      if (discountList.length === 0) return Console.print(PREVIEW_MARK.none);
+      if (discountList.length === 0) return OutputClass.#printNone();
 
+      const discountMessages =
+        OutputClass.#createDiscountMessages(discountList);
+
+      OutputClass.#printListWithNewLine(discountMessages);
+    }
+
+    static #createDiscountMessages(discountList) {
       const messages = [];
+
       discountList.forEach(({ name, totalDiscountPrice }) => {
         if (totalDiscountPrice === 0) return;
+        const price = OutputClass.#priceMessage({
+          price: totalDiscountPrice,
+          minus: true,
+        });
 
-        const delimitedPrice = addMoneyDelimiter(totalDiscountPrice);
-        messages.push(
-          `${name}${PREVIEW_MARK.namePriceDivider} ${PREVIEW_MARK.minus}${delimitedPrice}${PREVIEW_MARK.price}`,
-        );
+        messages.push(`${name}${PREVIEW_MARK.namePriceDivider} ${price}`);
       });
 
-      Console.print(messages.join(PREVIEW_MARK.newLine));
+      return messages;
     }
 
     static printTotalDiscountPrice(totalDiscountPrice) {
       Console.print(PREVIEW_HEADER.totalDiscountPrice);
 
-      const delimitedPrice = addMoneyDelimiter(totalDiscountPrice);
-      const minusState = totalDiscountPrice === 0 ? '' : PREVIEW_MARK.minus;
-      Console.print(`${minusState}${delimitedPrice}${PREVIEW_MARK.price}`);
+      const price = OutputClass.#priceMessage({
+        price: totalDiscountPrice,
+        minus: totalDiscountPrice !== 0,
+      });
+
+      Console.print(price);
     }
 
     static printFinalPrice(finalPrice) {
       Console.print(PREVIEW_HEADER.finalPrice);
 
-      const delimitedPrice = addMoneyDelimiter(finalPrice);
-
-      Console.print(delimitedPrice + PREVIEW_MARK.price);
+      Console.print(OutputClass.#priceMessage({ price: finalPrice }));
     }
 
     static printBadge(badge) {
       Console.print(PREVIEW_HEADER.badge);
 
-      if (badge === NO_BADGE) return Console.print(PREVIEW_MARK.none);
+      if (badge === NO_BADGE) return OutputClass.#printNone();
 
       Console.print(badge);
     }
 
     static printError(errorMessage) {
       Console.print(errorMessage);
+    }
+
+    static #createMessageList(list) {
+      const messages = [];
+
+      list.forEach(({ name, count }) =>
+        messages.push(`${name} ${count}${PREVIEW_MARK.count}`),
+      );
+
+      return messages;
+    }
+
+    static #printListWithNewLine(messages) {
+      Console.print(messages.join(PREVIEW_MARK.newLine));
+    }
+
+    static #printNone() {
+      Console.print(PREVIEW_MARK.none);
+    }
+
+    // 돈과 -상태를 입력받아 구분자로 나눠진 돈을 출력하는 메서드
+    static #priceMessage({ price, minus }) {
+      const delimitedMoney = addMoneyDelimiter(price);
+
+      return `${minus ? PREVIEW_MARK.minus : ''}${delimitedMoney}${
+        PREVIEW_MARK.price
+      }`;
     }
   };
 
