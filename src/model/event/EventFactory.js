@@ -13,7 +13,7 @@ class EventFactory {
     [EVENT_LIST.weekdays.engName, WeekDaysEvent],
     [EVENT_LIST.weekend.engName, WeekendEvent],
     [EVENT_LIST.star.engName, StarEvent],
-    [EVENT_LIST.gift.engName, ChampagneEvent],
+    [EVENT_LIST.champagne.engName, ChampagneEvent],
     [EVENT_LIST.newYear.engName, NewYearEvent],
   ]);
 
