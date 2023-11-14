@@ -17,12 +17,12 @@ class ChampagneEvent extends GiftEvent {
   init({ visitDate, shoppingCart }) {
     this.#calcGiftList(shoppingCart.totalPrice);
 
-    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
+    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
       ? this.#calcTotalDiscountPrice()
       : 0;
   }
 
-  isWithinEventDays(date) {
+  isWithinEventPeriod(date) {
     return date.isInPeriod(this.period);
   }
 
