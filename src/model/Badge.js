@@ -1,5 +1,5 @@
 export const NO_BADGE = '배지 없음';
-const BADGE_LIST = [
+export const BADGE_LIST = [
   {
     name: '별',
     minPrice: 5_000,
