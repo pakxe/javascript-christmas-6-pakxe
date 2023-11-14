@@ -1,11 +1,8 @@
 import MENU_LIST from '../constant/menuList.js';
-import menuListToFlatArr from '../utils/menuListToFlatArr.js';
 
 class PriceCalculator {
   static getTotalPriceWithoutDiscount(menuList) {
-    const flattedMenuList = menuListToFlatArr(menuList);
-
-    const totalPrice = flattedMenuList.reduce(
+    const totalPrice = menuList.reduce(
       (total, menu) => total + this.#calcMenuPrice(menu),
       0,
     );
