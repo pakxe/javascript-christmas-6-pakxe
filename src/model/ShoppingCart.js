@@ -4,6 +4,7 @@ import validateMenuList from '../validator/validateMenuList.js';
 import Menu from './Menu.js';
 import PriceCalculator from './PriceCalculator.js';
 import MenuListDto from '../dto/MenuListDto.js';
+import menuListToFlatArr from '../utils/menuListToFlatArr.js';
 
 class ShoppingCart {
   #menuList = new Map(); // { category: Menu [] }
@@ -16,9 +17,9 @@ class ShoppingCart {
 
     validateMenuList(this.#menuList);
 
-    this.#totalPrice = PriceCalculator.getTotalPriceWithoutDiscount(
-      this.#menuList,
-    );
+    const flattedMenuList = menuListToFlatArr(this.#menuList);
+    this.#totalPrice =
+      PriceCalculator.getTotalPriceWithoutDiscount(flattedMenuList);
   }
 
   #categorizeMenuList(menuList) {
