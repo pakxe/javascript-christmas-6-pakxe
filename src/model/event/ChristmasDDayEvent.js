@@ -7,12 +7,12 @@ class ChristmasDDayEvent extends Event {
   #totalDiscountPrice;
 
   init({ visitDate }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
+    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
       ? DEFAULT_DISCOUNT_PRICE + this.#calcTotalDiscountPrice(visitDate)
       : 0;
   }
 
-  isWithinEventDays(date) {
+  isWithinEventPeriod(date) {
     return date.isInPeriod(this.period);
   }
 

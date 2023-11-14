@@ -12,7 +12,7 @@ class Event {
   }
 
   // 각자의 날짜 검증이 다를 수 있으므로 오버라이딩해서 구현하도록 함
-  isWithinEventDays() {
+  isWithinEventPeriod() {
     throw new OverridingError();
   }
 

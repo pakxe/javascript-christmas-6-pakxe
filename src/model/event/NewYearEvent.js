@@ -14,14 +14,14 @@ class NewYearEvent extends GiftEvent {
   #totalDiscountPrice;
 
   init({ visitDate, badge }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
+    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
       ? this.#calcTotalDiscountPrice(badge)
       : 0;
 
     this.#calcGiftList(badge);
   }
 
-  isWithinEventDays(date) {
+  isWithinEventPeriod(date) {
     return date.isInPeriod(this.period);
   }
 
@@ -37,6 +37,7 @@ class NewYearEvent extends GiftEvent {
   }
 
   // 누적되지 않는 보상 (트리 뱃지면, 별, 트리 상품을 모두 받는 것이 아닌 트리만)
+  // 다른 이벤트는 누적이지만 이건 다르게 사용한 이유는 단일 뱃지로만 상품을 판단하는 것이기 떄문
   #calcGiftList(badge) {
     BADGE_LIST.forEach((badgeInfo, i) =>
       this.#addGift(badgeInfo.name, badge, i),

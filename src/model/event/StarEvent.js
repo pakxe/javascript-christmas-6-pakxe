@@ -1,6 +1,5 @@
 import { DECEMBER_EVENT, TIME } from '../../constant/periodInfo.js';
 import addLeadingZero from '../../utils/addLeadingZero.js';
-import CustomDate from '../CustomDate.js';
 import Event from './Event.js';
 
 const STAR_DISCOUNT_PRICE = 1_000;
@@ -10,12 +9,12 @@ class StarEvent extends Event {
   #totalDiscountPrice;
 
   init({ visitDate }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
+    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
       ? STAR_DISCOUNT_PRICE
       : 0;
   }
 
-  isWithinEventDays(date) {
+  isWithinEventPeriod(date) {
     return STAR_DAYS.some((day) => {
       const starDate = this.#createStarDateObj(day);
 

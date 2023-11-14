@@ -8,12 +8,12 @@ class WeekDaysEvent extends Event {
   #totalDiscountPrice;
 
   init({ visitDate, shoppingCart }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
+    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
       ? this.#calcTotalDiscountPrice(shoppingCart)
       : 0;
   }
 
-  isWithinEventDays(date) {
+  isWithinEventPeriod(date) {
     if (!date.isInPeriod(this.period)) return false;
 
     return date.isInDaysOfWeek(WEEKDAYS);
