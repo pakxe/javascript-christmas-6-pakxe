@@ -63,7 +63,6 @@ const OutputView = (superClass) =>
         OutputClass.#createDiscountMessages(discountList);
 
       OutputClass.#printListWithNewLine(discountMessages);
-      OutputClass.#printNewLine();
     }
 
     static #createDiscountMessages(discountList) {
@@ -107,6 +106,7 @@ const OutputView = (superClass) =>
       if (badge === NO_BADGE) return OutputClass.#printNone();
 
       Console.print(badge);
+      OutputClass.#printNewLine();
     }
 
     static printError(errorMessage) {
@@ -131,7 +131,6 @@ const OutputView = (superClass) =>
       Console.print(PREVIEW_MARK.none);
     }
 
-    // 돈과 -상태를 입력받아 구분자로 나눠진 돈을 출력하는 메서드
     static #priceMessage({ price, minus }) {
       const delimitedMoney = addMoneyDelimiter(price);
 
@@ -141,7 +140,8 @@ const OutputView = (superClass) =>
     }
 
     static #printNewLine() {
-      Console.print(PREVIEW_MARK.newLine);
+      Console.print('');
+      // 아무것도 입력하지 않으면 개행이 되어서 빈 문자열을 넘겨주었습니다.
     }
   };
 
