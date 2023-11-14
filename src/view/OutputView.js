@@ -17,6 +17,11 @@ const OutputView = (superClass) =>
       OutputClass.#printListWithNewLine(warningMessageList);
     }
 
+    static printOrderId(orderId) {
+      Console.print(PREVIEW_HEADER.orderId);
+      Console.print(NOTIFICATION_MESSAGE.orderId(orderId));
+    }
+
     static printOpening() {
       Console.print(NOTIFICATION_MESSAGE.opening);
     }
@@ -36,6 +41,7 @@ const OutputView = (superClass) =>
     static printTotalPriceWithoutDiscount(price) {
       Console.print(PREVIEW_HEADER.totalPriceWithoutDiscount);
       Console.print(OutputClass.#priceMessage({ price }));
+      OutputClass.#printNewLine();
     }
 
     static printGiftList(giftList) {
@@ -57,6 +63,7 @@ const OutputView = (superClass) =>
         OutputClass.#createDiscountMessages(discountList);
 
       OutputClass.#printListWithNewLine(discountMessages);
+      OutputClass.#printNewLine();
     }
 
     static #createDiscountMessages(discountList) {
@@ -84,12 +91,14 @@ const OutputView = (superClass) =>
       });
 
       Console.print(price);
+      OutputClass.#printNewLine();
     }
 
     static printFinalPrice(finalPrice) {
       Console.print(PREVIEW_HEADER.finalPrice);
 
       Console.print(OutputClass.#priceMessage({ price: finalPrice }));
+      OutputClass.#printNewLine();
     }
 
     static printBadge(badge) {
@@ -115,7 +124,7 @@ const OutputView = (superClass) =>
     }
 
     static #printListWithNewLine(messages) {
-      Console.print(messages.join(PREVIEW_MARK.newLine));
+      Console.print(messages.join(PREVIEW_MARK.newLine) + PREVIEW_MARK.newLine);
     }
 
     static #printNone() {
@@ -129,6 +138,10 @@ const OutputView = (superClass) =>
       return `${minus ? PREVIEW_MARK.minus : ''}${delimitedMoney}${
         PREVIEW_MARK.price
       }`;
+    }
+
+    static #printNewLine() {
+      Console.print(PREVIEW_MARK.newLine);
     }
   };
 
