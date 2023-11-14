@@ -24,9 +24,7 @@ class EventFactory {
 
     const EventClass = this.#eventMap.get(name);
 
-    if (EventClass) {
-      return new EventClass(EVENT_LIST[name]);
-    }
+    if (EventClass) return new EventClass(EVENT_LIST[name]);
   }
 }
 
