@@ -71,7 +71,9 @@ class EventPlanner {
   }
 
   get discountList() {
-    return this.#discountList;
+    return this.#discountList.filter(
+      ({ totalDiscountPrice }) => totalDiscountPrice !== 0,
+    );
   }
 
   get totalDiscountPrice() {
