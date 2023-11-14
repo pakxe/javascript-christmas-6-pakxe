@@ -5,7 +5,7 @@ const createDateForObj = (dateStr) => {
   return dateStr.split('.').map((str) => addLeadingZero(str));
 };
 
-const generateEventPeriod = ({ start, end }) => {
+const generatePeriod = ({ start, end }) => {
   const [startYear, startMonth, startDay] = createDateForObj(start);
   const [endYear, endMonth, endDay] = createDateForObj(end);
 
@@ -15,4 +15,4 @@ const generateEventPeriod = ({ start, end }) => {
   };
 };
 
-export default generateEventPeriod;
+export default generatePeriod;
