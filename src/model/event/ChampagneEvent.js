@@ -12,14 +12,14 @@ const GIFT_LIST = [{ giftName: '샴페인', minPrice: 120_000 }];
 class ChampagneEvent extends GiftEvent {
   #giftList = new Map(); // name: count
 
-  #totalDiscountPrice;
+  #totalDiscountPrice = 0;
 
   init({ visitDate, shoppingCart }) {
+    if (!this.isWithinEventPeriod(visitDate)) return;
+
     this.#calcGiftList(shoppingCart.totalPrice);
 
-    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
-      ? this.#calcTotalDiscountPrice()
-      : 0;
+    this.#totalDiscountPrice = this.#calcTotalDiscountPrice();
   }
 
   isWithinEventPeriod(date) {
