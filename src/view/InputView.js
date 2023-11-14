@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import REQUEST_MESSAGE from './constants/requestMessage.js';
+import { PREVIEW_HEADER } from './constants/previewMessage.js';
 
 const InputView = (superClass) =>
   class extends superClass {
@@ -12,7 +13,9 @@ const InputView = (superClass) =>
     }
 
     static requestOrderId() {
-      return Console.readLineAsync(REQUEST_MESSAGE.orderId);
+      const requestMessageWithHeader = `${PREVIEW_HEADER.requestOrderId}\n${REQUEST_MESSAGE.orderId}`;
+
+      return Console.readLineAsync(requestMessageWithHeader);
     }
   };
 
