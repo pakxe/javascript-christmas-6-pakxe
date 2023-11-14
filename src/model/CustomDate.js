@@ -1,27 +1,37 @@
-import ERROR from '../error/constants/error.js';
-import EVENT from '../constant/event.js';
+import { ERROR } from '../error/constants/error.js';
 import VisitDateError from '../error/VisitDateError.js';
 import Parser from '../parser/Parser.js';
 import Validator from '../validator/Validator.js';
 import addLeadingZero from '../utils/addLeadingZero.js';
+import { DECEMBER_EVENT } from '../constant/periodInfo.js';
 
 class CustomDate {
   #date;
 
-  constructor(day) {
+  static createByDay(day) {
     const parsedDay = Parser.parseInt(day);
 
     this.#validateDay(parsedDay);
 
-    // 비교의 원활함과 확장을 생각해 Date객체로 다룸
-    this.#date = new Date(
-      `${EVENT.year}-${EVENT.month}-${addLeadingZero(day, 2)}`,
-    );
+    const date = `${DECEMBER_EVENT.year}-${
+      DECEMBER_EVENT.month
+    }-${addLeadingZero(day, 2)}`;
+
+    return new CustomDate(date);
   }
 
-  #validateDay(day) {
+  constructor(date) {
+    this.#date = new Date(date);
+  }
+
+  static #validateDay(day) {
     if (Validator.isNan(day)) throw new VisitDateError(ERROR.visitDay);
-    if (Validator.isNotInRange([EVENT.startDay, EVENT.endDay], day))
+    if (
+      Validator.isNotInRange(
+        [DECEMBER_EVENT.startDay, DECEMBER_EVENT.endDay],
+        day,
+      )
+    )
       throw new VisitDateError(ERROR.visitDay);
   }
 
