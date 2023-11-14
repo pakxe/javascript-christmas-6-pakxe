@@ -18,7 +18,7 @@ class NewYearEvent extends GiftEvent {
 
     this.#calcGiftList(badge);
 
-    this.#totalDiscountPrice = this.#calcTotalDiscountPrice();
+    this.#totalDiscountPrice = this.#calcTotalDiscountPrice(badge);
   }
 
   isWithinEventPeriod(date) {
