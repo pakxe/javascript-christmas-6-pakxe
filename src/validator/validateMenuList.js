@@ -1,6 +1,6 @@
 import { CATEGORY } from '../constant/menuList.js';
 import MenuError from '../error/MenuError.js';
-import ERROR from '../error/constants/error.js';
+import { ERROR } from '../error/constants/error.js';
 import { MENU_COUNT, MENU_LIST_COUNT } from '../model/constants/rule.js';
 import menuListToFlatArr from '../utils/menuListToFlatArr.js';
 import Validator from './Validator.js';
