@@ -11,14 +11,14 @@ const GIFT_LIST = [
 class NewYearEvent extends GiftEvent {
   #giftList = [];
 
-  #totalDiscountPrice;
+  #totalDiscountPrice = 0;
 
   init({ visitDate, badge }) {
-    this.#totalDiscountPrice = this.isWithinEventPeriod(visitDate)
-      ? this.#calcTotalDiscountPrice(badge)
-      : 0;
+    if (!this.isWithinEventPeriod(visitDate)) return;
 
     this.#calcGiftList(badge);
+
+    this.#totalDiscountPrice = this.#calcTotalDiscountPrice();
   }
 
   isWithinEventPeriod(date) {
