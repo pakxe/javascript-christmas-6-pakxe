@@ -1,4 +1,4 @@
-import ERROR from './constants/error.js';
+import { ERROR } from './constants/error.js';
 
 class CustomError extends Error {
   constructor(message) {
