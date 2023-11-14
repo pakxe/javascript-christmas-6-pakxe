@@ -32,7 +32,10 @@ class WeekendEvent extends Event {
   #calcSingleDiscountPrice(menu) {
     const { price } = findMenu(menu.name);
 
-    return price < WEEKEND_DISCOUNT_PRICE ? price : WEEKEND_DISCOUNT_PRICE;
+    const discountPrice =
+      price < WEEKEND_DISCOUNT_PRICE ? price : WEEKEND_DISCOUNT_PRICE;
+
+    return discountPrice * menu.count;
   }
 
   get totalDiscountPrice() {
