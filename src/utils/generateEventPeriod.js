@@ -1,22 +1,17 @@
 import { TIME } from '../constant/periodInfo.js';
 import addLeadingZero from './addLeadingZero.js';
 
+const createDateForObj = (dateStr) => {
+  return dateStr.split('.').map((str) => addLeadingZero(str));
+};
+
 const generateEventPeriod = ({ start, end }) => {
-  const [startYear, startMonth, startDay] = start.split('.');
-  const [endYear, endMonth, endDay] = end.split('.');
+  const [startYear, startMonth, startDay] = createDateForObj(start);
+  const [endYear, endMonth, endDay] = createDateForObj(end);
 
   return {
-    start: new Date(
-      `${startYear}-${addLeadingZero(startMonth, 2)}-${addLeadingZero(
-        startDay,
-        2,
-      )}${TIME.start}`,
-    ),
-    end: new Date(
-      `${endYear}-${addLeadingZero(endMonth, 2)}-${addLeadingZero(endDay, 2)}${
-        TIME.end
-      }`,
-    ),
+    start: new Date(`${startYear}-${startMonth}-${startDay}${TIME.start}`),
+    end: new Date(`${endYear}-${endMonth}-${endDay}${TIME.end}`),
   };
 };
 
