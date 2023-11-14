@@ -6,6 +6,12 @@ import Badge from '../model/Badge.js';
 import catchReturn from '../utils/catchReturn.js';
 
 class EventController {
+  #orderHistory;
+
+  constructor(orderHistory) {
+    this.#orderHistory = orderHistory;
+  }
+
   async process() {
     const { visitDate, shoppingCart } = await this.#requestInformation();
 
@@ -25,7 +31,7 @@ class EventController {
   async #requestVisitDate() {
     const visitDayStr = await Io.requestVisitDate();
 
-    return new CustomDate(visitDayStr);
+    return CustomDate.createByDay(visitDayStr);
   }
 
   async #requestMenuList() {
@@ -36,11 +42,19 @@ class EventController {
 
   #printResult({ visitDate, shoppingCart }) {
     Io.printResultHeader(visitDate.date);
-    const eventPlanner = new EventPlanner(visitDate, shoppingCart);
+
+    const eventPlanner = new EventPlanner({ visitDate, shoppingCart });
+    const badge = Badge.checkBadge(eventPlanner.totalDiscountPrice);
 
     this.#printBeforeDiscount({ shoppingCart });
     this.#printAfterDiscount({ eventPlanner, shoppingCart });
-    this.#printBadge(eventPlanner.totalDiscountPrice);
+    Io.printBadge(badge);
+
+    this.#addOrderToHistory({
+      visitDate,
+      menuList: shoppingCart.menuList,
+      badge,
+    });
   }
 
   #printBeforeDiscount({ shoppingCart }) {
@@ -63,10 +77,10 @@ class EventController {
     Io.printFinalPrice(eventPlanner.calcFinalPrice(totalPriceWithoutDiscount));
   }
 
-  #printBadge(totalDiscountPrice) {
-    const badge = Badge.checkBadge(totalDiscountPrice);
+  #addOrderToHistory(OrderInfo) {
+    const orderId = this.#orderHistory.add(OrderInfo);
 
-    Io.printBadge(badge);
+    Io.printOrderId(orderId);
   }
 }
 
