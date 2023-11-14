@@ -47,24 +47,6 @@ class EventPlanner {
     return { name: event.name, totalDiscountPrice: event.totalDiscountPrice };
   }
 
-  get giftList() {
-    return this.#getGiftEventList()
-      .map((giftEvent) => giftEvent.giftList)
-      .flat();
-  }
-
-  #getGiftEventList() {
-    return this.#eventList.filter((event) => event instanceof GiftEvent);
-  }
-
-  get discountList() {
-    return this.#discountList;
-  }
-
-  get totalDiscountPrice() {
-    return this.#totalDiscountPrice;
-  }
-
   calcFinalPrice(totalPriceWithoutDiscount) {
     const totalGiftPrice = this.#getGiftEventList().reduce(
       (total, event) => total + event.totalDiscountPrice,
@@ -76,6 +58,24 @@ class EventPlanner {
       totalPriceWithoutDiscount,
       totalDiscountPrice,
     );
+  }
+
+  #getGiftEventList() {
+    return this.#eventList.filter((event) => event instanceof GiftEvent);
+  }
+
+  get giftList() {
+    return this.#getGiftEventList()
+      .map((giftEvent) => giftEvent.giftList)
+      .flat();
+  }
+
+  get discountList() {
+    return this.#discountList;
+  }
+
+  get totalDiscountPrice() {
+    return this.#totalDiscountPrice;
   }
 }
 
