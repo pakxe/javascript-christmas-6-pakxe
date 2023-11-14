@@ -10,6 +10,10 @@ const InputView = (superClass) =>
     static requestMenuList() {
       return Console.readLineAsync(REQUEST_MESSAGE.menuList);
     }
+
+    static requestOrderId() {
+      return Console.readLineAsync(REQUEST_MESSAGE.orderId);
+    }
   };
 
 export default InputView;
