@@ -39,7 +39,7 @@ class ShoppingCart {
   getListOfCategory(category) {
     if (!this.#menuList.has(category)) return [];
 
-    return this.#menuList.get(category);
+    return this.#menuList.get(category); // [{name, count}...]
   }
 
   get totalPrice() {
