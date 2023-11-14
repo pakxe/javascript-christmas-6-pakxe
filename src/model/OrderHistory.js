@@ -35,6 +35,7 @@ class OrderHistory {
     if (!this.#customerHistoryList.has(orderId)) {
       this.#retryCount += 1;
       this.#checkRetryCount();
+
       throw new RetryError(
         ERROR.notFoundOrderId + COMMON_MESSAGE.limitRetry(this.#retryCount),
       );
