@@ -6,9 +6,9 @@ const INTEREST = 100;
 class ChristmasDDayEvent extends Event {
   #totalDiscountPrice;
 
-  init({ date }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(date)
-      ? DEFAULT_DISCOUNT_PRICE + this.#calcTotalDiscountPrice(date)
+  init({ visitDate }) {
+    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
+      ? DEFAULT_DISCOUNT_PRICE + this.#calcTotalDiscountPrice(visitDate)
       : 0;
   }
 

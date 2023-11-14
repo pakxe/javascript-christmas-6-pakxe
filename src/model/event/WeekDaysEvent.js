@@ -7,8 +7,8 @@ import findMenu from '../../utils/findMenu.js';
 class WeekDaysEvent extends Event {
   #totalDiscountPrice;
 
-  init({ date, shoppingCart }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(date)
+  init({ visitDate, shoppingCart }) {
+    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
       ? this.#calcTotalDiscountPrice(shoppingCart)
       : 0;
   }

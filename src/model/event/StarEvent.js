@@ -7,8 +7,8 @@ const STAR_DAYS = [3, 10, 17, 24, 25, 31];
 class StarEvent extends Event {
   #totalDiscountPrice;
 
-  init({ date }) {
-    this.#totalDiscountPrice = this.isWithinEventDays(date)
+  init({ visitDate }) {
+    this.#totalDiscountPrice = this.isWithinEventDays(visitDate)
       ? STAR_DISCOUNT_PRICE
       : 0;
   }
@@ -21,4 +21,5 @@ class StarEvent extends Event {
     return this.#totalDiscountPrice;
   }
 }
+
 export default StarEvent;
