@@ -25,6 +25,7 @@ const PREVIEW_HEADER = deepFreeze({
   totalDiscountPrice: wrapPreview('총혜택 금액'),
   finalPrice: wrapPreview('할인 후 예상 결제 금액'),
   badge: wrapPreview(`${DECEMBER_EVENT.month}월 이벤트 배지`),
+  requestOrderId: wrapPreview('고객 정보 찾기 테스트'),
   orderId: wrapPreview('주문 번호'),
 });
 
