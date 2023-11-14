@@ -1,3 +1,5 @@
+import { DECEMBER_EVENT, TIME } from '../../constant/periodInfo.js';
+import addLeadingZero from '../../utils/addLeadingZero.js';
 import CustomDate from '../CustomDate.js';
 import Event from './Event.js';
 
@@ -14,7 +16,17 @@ class StarEvent extends Event {
   }
 
   isWithinEventDays(date) {
-    return STAR_DAYS.some((day) => date.isSameDate(new CustomDate(day)));
+    return STAR_DAYS.some((day) => {
+      const starDate = this.#createStarDateObj(day);
+
+      return date.isSameDate(new Date(starDate));
+    });
+  }
+
+  #createStarDateObj(day) {
+    return `${DECEMBER_EVENT.year}-${DECEMBER_EVENT.month}-${addLeadingZero(
+      day,
+    )}${TIME.start}`;
   }
 
   get totalDiscountPrice() {
