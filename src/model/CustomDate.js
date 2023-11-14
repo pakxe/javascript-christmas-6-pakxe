@@ -50,21 +50,26 @@ class CustomDate {
   }
 
   differenceDate(date) {
-    const timeDifference = Math.abs(this.#date - date);
+    const thisDateTimes = new Date(this.#date).setHours(24, 0, 0, 0); // 오차를 없애기 위해 같은 시간으로 세팅
+    const anotherDateTimes = date.setHours(24, 0, 0, 0);
+
+    const timeDifference = Math.abs(thisDateTimes - anotherDateTimes);
     const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
 
     return Math.floor(daysDifference);
   }
 
   isSameDate(date) {
-    const differenceDay = this.differenceDate(date);
+    const [year1, year2] = [this.#date.getFullYear(), date.getFullYear()];
+    const [month1, month2] = [this.#date.getMonth(), date.getMonth()];
+    const [date1, date2] = [this.#date.getUTCDate(), date.getUTCDate()];
 
-    return differenceDay === 0;
+    return year1 === year2 && month1 === month2 && date1 === date2;
   }
 
   // 년월일 중 일
   get date() {
-    return this.#date.getDate();
+    return this.#date.getUTCDate();
   }
 
   // 요일
