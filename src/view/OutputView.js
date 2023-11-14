@@ -69,7 +69,6 @@ const OutputView = (superClass) =>
       const messages = [];
 
       discountList.forEach(({ name, totalDiscountPrice }) => {
-        if (totalDiscountPrice === 0) return;
         const price = OutputClass.#priceMessage({
           price: totalDiscountPrice,
           minus: true,
