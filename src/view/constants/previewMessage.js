@@ -1,4 +1,4 @@
-import EVENT from '../../constant/event.js';
+import { DECEMBER_EVENT } from '../../constant/periodInfo.js';
 import deepFreeze from '../../utils/deepFreeze.js';
 
 const PREVIEW_MARK = deepFreeze({
@@ -24,7 +24,8 @@ const PREVIEW_HEADER = deepFreeze({
   discountList: wrapPreview('혜택 내역'),
   totalDiscountPrice: wrapPreview('총혜택 금액'),
   finalPrice: wrapPreview('할인 후 예상 결제 금액'),
-  badge: wrapPreview(`${EVENT.month}월 이벤트 배지`),
+  badge: wrapPreview(`${DECEMBER_EVENT.month}월 이벤트 배지`),
+  orderId: wrapPreview('주문 번호'),
 });
 
 export { PREVIEW_HEADER, PREVIEW_MARK };
