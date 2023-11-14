@@ -13,6 +13,7 @@ class Menu {
 
   #parseMenu(menu) {
     const [name, count] = Parser.splitMenuInfo(menu);
+
     return { name, count: Parser.parseInt(count) };
   }
 
