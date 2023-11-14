@@ -11,33 +11,38 @@ class EventPlanner {
 
   #totalDiscountPrice; // 재호출로 소모되는 시간을 줄이기 위한 멤버 변수 할당
 
-  constructor(date, shoppingCart) {
-    this.#eventList = this.#initEventList(shoppingCart.totalPrice);
+  constructor(eventParams) {
+    this.#eventList = this.#initEventList(eventParams);
 
-    this.#discountList = this.#getDiscountList(date, shoppingCart);
+    this.#discountList = this.#getDiscountList(eventParams);
 
     this.#totalDiscountPrice = PriceCalculator.calcTotalDiscountPrice(
       this.#discountList,
     );
   }
 
-  #initEventList(totalPrice) {
-    // 10000원 이하면 이벤트 적용 x
-    if (totalPrice < MIN_ORDER_PRICE) return [];
+  #initEventList(eventParams) {
+    const { shoppingCart, visitDate } = eventParams;
+    if (shoppingCart?.totalPrice < MIN_ORDER_PRICE) return [];
 
-    return Object.values(EVENT_LIST).map((event) =>
-      EventFactory.create(event.engName),
-    );
+    const eventList = [];
+    Object.values(EVENT_LIST).forEach((event) => {
+      if (!visitDate.isInPeriod(event.period)) return;
+
+      eventList.push(EventFactory.create(event.engName));
+    });
+    return eventList;
   }
 
-  #getDiscountList(date, shoppingCart) {
+  // 이벤트마다 init에 필요한 인자가 다를 수 있으므로 params로 받아 사용
+  #getDiscountList(eventParams) {
     return this.#eventList.map((event) =>
-      this.#singleDiscountPrice(event, date, shoppingCart),
+      this.#singleDiscountPrice({ event, eventParams }),
     );
   }
 
-  #singleDiscountPrice(event, date, shoppingCart) {
-    event.init({ date, shoppingCart }); // 선택적으로 수용하도록 함
+  #singleDiscountPrice({ event, eventParams }) {
+    event.init(eventParams); // 선택적으로 수용하도록 함
 
     return { name: event.name, totalDiscountPrice: event.totalDiscountPrice };
   }
