@@ -7,10 +7,21 @@ import Io from '../view/Io.js';
 
 class NewYearController {
   async process(orderHistory) {
-    const orderId = await this.#retryUntilMax(this.#requestOrderId);
-    const eventInfo = this.#findBadgeByOrderId({ orderHistory, orderId });
+    const eventInfo = await this.#retryUntilMax(() =>
+      this.#getEventInfo(orderHistory),
+    );
 
     this.#printGift(eventInfo);
+  }
+
+  async #getEventInfo(orderHistory) {
+    const orderId = await this.#requestOrderId();
+    const badge = this.#findBadgeByOrderId({ orderHistory, orderId });
+
+    // 새해 이후 임시 방문일 생성
+    const visitDate = new CustomDate('2024-01-24T00:03:24.000Z');
+
+    return { badge, visitDate };
   }
 
   async #requestOrderId() {
@@ -21,11 +32,9 @@ class NewYearController {
   }
 
   #findBadgeByOrderId({ orderHistory, orderId }) {
-    // 새해 이후 임시 방문일 생성
-    const visitDate = new CustomDate('2024-01-24T00:03:24.000Z');
     const badge = orderHistory.findBadgeByOrderId(orderId);
 
-    return { visitDate, badge };
+    return badge;
   }
 
   #printGift(eventInfo) {
