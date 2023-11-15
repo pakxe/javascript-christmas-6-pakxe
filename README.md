@@ -243,6 +243,10 @@ map에 저장했으니 당연하게 orderId로 get을 받아올 수 있다. 따�
 
 <img width="634" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/ed2d6c61-ec81-4bbd-aced-e668aea76a3f">
 
+그리고 이렇게 찾아진 배지는 `isProductReceived`값을 true로 바꿔 이미 수령된 상태로 바꾼다.
+만약 해당 orderId로 다시 배지 찾기가 수행된다면 '이미 수령된 상품입니다.'라고 에러를 띄워 추가 수령을 막는다.
+
+그리고 새해 이벤트 참여율이 5%가 넘어야 하므로, 이를 측정하기 위한 참여율 계산 로직을 추가로 구현하였다. 
 
 ## 구현하면서 겪었던 어려움
 
