@@ -1,3 +1,6 @@
+# 한달 요약 😆
+![제목_없는_아트워크 33](https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/18aa452c-3db4-4d72-89d5-78ee21bff2df)
+
 # 실행 결과
 <img width="872" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/15d24698-c625-4b23-91de-60b2dc2ad36d">
 
