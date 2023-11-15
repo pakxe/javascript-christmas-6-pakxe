@@ -16,6 +16,10 @@ class Parser {
   static splitMenuList(menuList) {
     return menuList.split(DIVIDER.menuList);
   }
+
+  static parseToFixed(input, limit) {
+    return parseFloat(input.toFixed(limit));
+  }
 }
 
 export default Parser;
