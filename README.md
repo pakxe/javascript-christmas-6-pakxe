@@ -1,3 +1,6 @@
+# 실행 결과
+<img width="872" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/15d24698-c625-4b23-91de-60b2dc2ad36d">
+
 # 구현 특징
 -----
 # [ 착각하기 쉬운 값들 ]
@@ -76,9 +79,13 @@ class SpecialEvent extends Event { ... }
 
 위에 `OverridingError` 를 던지는 메서드가 있는데 이는 반드시 이 Event 클래스를 상속한 클래스 안에서 이를 오버라이딩 하지 않으면 안된다는 의미로 오류를 넣었다. 
 
-![[ OverridingError.js ]](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/25b15435-5201-4ad3-8ec7-c0ee4a54baa2/Untitled.png)
-
-[ OverridingError.js ]
+```js
+class OverridingError extends CustomError {
+  constructor() {
+    super('메서드를 오버라이딩 해주세요.');
+  }
+}
+```
 
 ## 이벤트 플래너는 모든 이벤트를 다룬다.
 
@@ -88,18 +95,14 @@ class SpecialEvent extends Event { ... }
 
 모든 이벤트는 Event 클래스를 상속받으므로 이 안에 이벤트 플래너가 사용할 메서드를 선언해둔다. 그리고 이 메서드를 각 이벤트 클래스들이 오버라이딩해 구현한다.
 
-![[ Event1.js ] Event를 상속받은 이벤트1](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/70223ea3-7b07-4e90-8830-1a0f6d32c83b/Untitled.png)
-
+<img width="211" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/05026737-bbad-4c1e-8d92-c0f7d4ca2ae1">
 [ Event1.js ] Event를 상속받은 이벤트1
 
-![[ Event2.js ] Event를 상속받은 이벤트 2
-같은 `isWithinEventDays` 여도 구현이 다른 모습이다](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/8d3da54e-0011-4bab-a578-d32bd6be8507/Untitled.png)
-
+<img width="364" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/3de8e059-f465-4bab-9120-fb548fa04256">
 [ Event2.js ] Event를 상속받은 이벤트 2
 같은 `isWithinEventDays` 여도 구현이 다른 모습이다
 
-![[ EventPlanner.js ] 이벤트 플래너](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/9f8d4221-f85e-4b3d-8372-70b866b05f4c/Untitled.png)
-
+<img width="621" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/7ec5057c-1271-47a2-ab92-beedf8035a75">
 [ EventPlanner.js ] 이벤트 플래너
 
 ## 오류 추적 시간 줄이기
@@ -110,7 +113,11 @@ class SpecialEvent extends Event { ... }
 
 요구사항에서 제시하는 이벤트는 상품을 주는 이벤트와 주지 않는 이벤트로 나눌 수 있었다. 따라서 상품을 주는 이벤트는 `GiftEvent`라는 클래스를 **상속**하게해 할인이 적용된 이벤트 목록에서 상품을 주는 이벤트만 따로 추출하는 것이 가능하게 되었다. 결과적으로 증정하는 상품 목록만을 깔끔하게 뽑아낼 수 있었다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/3a3f3be7-fea6-4240-b9b6-2f009f8fb498/Untitled.png)
+```js
+  #getGiftEventList() {
+    return this.#eventList.filter((event) => event instanceof GiftEvent);
+  }
+```
 
 # [ 상태를 갖고 있는 객체가 일을 하도록 하기 ]
 
@@ -138,12 +145,10 @@ class SpecialEvent extends Event { ... }
 
 다만 이렇게 되니 메서드의 인자가 하나씩 더 늘어나게 되었다. 그리고 외부 클래스에서 CustomDate에서 갖고있는 값인 날것의 날짜(new Date(…)로 생성된 인스턴스)에 접근해야했기 때문에 getter(get day)가 필요했다.
 
-![[DataUtils.js] (비슷한 메서드들이기 때문에 하나만 캡처하였습니다.)](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/48cee2e5-998a-40fb-aa50-502679624093/Untitled.png)
-
+<img width="286" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/64795719-6d1a-41b9-9da5-4658f46f2adc">
 [DataUtils.js] (비슷한 메서드들이기 때문에 하나만 캡처하였습니다.)
 
-![[ CustomDate.js ] 요일을 받아오는 getter](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/c517e2ab-bee0-45a3-b7b8-6317539bc70c/Untitled.png)
-
+<img width="283" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/603247e0-e150-4028-8ec6-429b303ca2a4">
 [ CustomDate.js ] 요일을 받아오는 getter
 
 ## 모아두니 부작용 발생
@@ -152,8 +157,7 @@ class SpecialEvent extends Event { ... }
 
 또한 js에서 제공하는 객체, 배열같은 자료형들은 다양한 유틸 메서드들을 갖고 있다는 점에서 이사 결심을 확신하게 되었다. 처음에 한 고민인 **크리스마스 이벤트만을 위한 메서드를 크리스마스 이벤트가 아닌 곳에 작성해도 되는가**는 결국 미래의 요구사항은 어떻게 될지 모르고, `최대한 예상해서 코드의 변경이 적은 쪽`으로 설계를 해야한다는 결론으로 향했다. 차이를 구하는 메서드는 크리스마스 뿐만이 아닌 다른 곳에서도 충분히 사용 가능성이 높았기때문이다. 따라서 메서드들을 `CustomDate`로 옮겼다. **2번** 방법이 최종 설계가 되었다.
 
-![[ CustomDate.js ] 메서드 이사 후 인자가 줄어들었고, getter를 사용하지 않는 모습](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/f6f1f82e-f7d0-4fe5-bb34-561129ce0b7d/Untitled.png)
-
+<img width="420" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/207330f8-3eab-4caf-8898-1a154a103d24">
 [ CustomDate.js ] 메서드 이사 후 인자가 줄어들었고, getter를 사용하지 않는 모습
 
 ## 이사하고 느꼈던 좋은 점들
@@ -226,21 +230,19 @@ map에 저장했으니 당연하게 orderId로 get을 받아올 수 있다. 따�
 
 이때 새해 이벤트 상품을 받기 위해 랜덤하게 모든 orderId값을 입력하는 `악성(?)` 고객이 있을 수 있으므로 5회 까지만 orderId입력을 받는 것으로 제한했다. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/3d0db5de-f479-4caf-944c-19ce8b2d30e2/Untitled.png)
+<img width="681" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/f5b9808f-c507-49f6-b652-e2fd4016af32">
+
 
 이때 try, catch를 사용해서 구현했는데 횟수를 어떻게 제한할까 생각하다, 5회를 넘으면 ExitError를 던졌고 아직 기회가 남아있다면 RetryError를 던졌다. 이게 최선의 구조는 아닐 것 같은데, 일단 try,catch에서 잡을 수 있는건 에러고 그 에러로 종료할지 말지를 선택해야했기에 이런 방식을 택하게 되었다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/bea6b007-69a4-468d-aae8-8f69613da2a7/Untitled.png)
+<img width="626" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/1882c587-1a24-4fbb-aa3b-421c7a32ae38">
 
 오류의 타입은 instanceOf로 파악해 조건을 분기하였다.
 
 정상 동작은 아래와 같다. 배지 다음으로 주문번호를 출력하고, 해당 주문 번호를 기억해두었다가 입력하는 방식이다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/24b45490-eade-47c3-bd97-bad0ee989a63/Untitled.png)
+<img width="634" alt="image" src="https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/ed2d6c61-ec81-4bbd-aced-e668aea76a3f">
 
-![새해 이벤트 상품에 대한 자료](https://prod-files-secure.s3.us-west-2.amazonaws.com/c555b800-3d36-4850-a05e-6e09cff98885/f15a0c5d-9f45-48c1-83e4-4a323e1eb6e4/Untitled.png)
-
-새해 이벤트 상품에 대한 자료
 
 ## 구현하면서 겪었던 어려움
 
