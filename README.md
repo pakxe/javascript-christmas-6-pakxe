@@ -1,3 +1,6 @@
+# flow
+![Group 7](https://github.com/pakxe/javascript-christmas-6-pakxe/assets/64801796/88b6abfd-fdd0-4756-a885-d89f287949c4)
+
 # 미션 - 크리스마스 프로모션
 
 ## 🔍 진행 방식
