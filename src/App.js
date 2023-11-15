@@ -7,7 +7,7 @@ class App {
     const orderHistory = new OrderHistory();
 
     await this.#eventPlanner(orderHistory);
-    // await this.#checkNewYearGift(orderHistory);
+    // await this.#checkNewYearGift(orderHistory); // ( 데모 ) 새해 이벤트를 위한 과정
   }
 
   async #eventPlanner(orderHistory) {
