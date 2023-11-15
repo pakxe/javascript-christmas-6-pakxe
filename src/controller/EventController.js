@@ -23,7 +23,7 @@ class EventController {
     Io.printWarning();
 
     const visitDate = await catchReturn(this.#requestVisitDate);
-    const shoppingCart = await catchReturn(this.#requestMenuList);
+    const shoppingCart = await catchReturn(this.#requestShoppingCart);
 
     return { visitDate, shoppingCart };
   }
@@ -34,7 +34,7 @@ class EventController {
     return CustomDate.createByDay(visitDayStr);
   }
 
-  async #requestMenuList() {
+  async #requestShoppingCart() {
     const menuListStr = await Io.requestMenuList();
 
     return new ShoppingCart(menuListStr);
@@ -46,7 +46,7 @@ class EventController {
     const eventPlanner = new EventPlanner({ visitDate, shoppingCart });
     const badge = Badge.checkBadge(eventPlanner.totalDiscountPrice);
 
-    this.#printBeforeDiscount({ shoppingCart });
+    this.#printTotalPriceWithoutDiscount({ shoppingCart });
     this.#printAfterDiscount({ eventPlanner, shoppingCart });
     Io.printBadge(badge);
 
@@ -57,7 +57,7 @@ class EventController {
     });
   }
 
-  #printBeforeDiscount({ shoppingCart }) {
+  #printTotalPriceWithoutDiscount({ shoppingCart }) {
     const { menuList } = shoppingCart;
     const totalPriceWithoutDiscount = shoppingCart.totalPrice;
 
